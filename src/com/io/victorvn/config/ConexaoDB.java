@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConexaoDB {
 
     private static final String HOST = "localhost";
-    private static final String DB_NAME = "PTPESDB";
+    private static final String DB_NAME = "chat_db";
     private static final String USERNAME = "root";
     private final static String PASSWORD = "";
     private final static String URL = "jdbc:mysql://" + HOST + "/" + DB_NAME + "?useTimezone=true&serverTimezone=UTC";

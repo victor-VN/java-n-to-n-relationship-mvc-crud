@@ -1,31 +1,32 @@
 package com.io.victorvn.dao;
 
 import com.io.victorvn.config.ConexaoDB;
-import com.io.victorvn.model.Pessoa;
+import com.io.victorvn.model.Usuario;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PessoaDAO {
+public class UsuarioDAO {
 
-    public String save(Pessoa pessoa){
+    public String save(Usuario usuario){
         try {
             Connection connection = ConexaoDB.getConnection();
 
-            String query = "INSERT INTO pessoa VALUES (DEFAULT,?,?,?,?,?)";
+            String query = "INSERT INTO usuario VALUES (DEFAULT,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getNome());
-            preparedStatement.setString(2, pessoa.getIdade());
-            preparedStatement.setString(3, pessoa.getAltura());
-            preparedStatement.setString(4, pessoa.getGenero());
-            preparedStatement.setString(5, pessoa.getPeso());
-
+            preparedStatement.setString(1, usuario.getNome());
+            preparedStatement.setString(2, usuario.getEmail());
+            preparedStatement.setString(3, usuario.getAvatar());
+            preparedStatement.setString(4, usuario.getDescricao());
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Pessoa cadastrada com sucesso";
+                return "Usuario cadastrado com sucesso";
             } else {
                 preparedStatement.close();
                 return "Falha ao cadastrar usuário. Por favor consulte um ADMIN";
@@ -35,23 +36,22 @@ public class PessoaDAO {
         }
     }
 
-    public String update(Pessoa pessoa){
+    public String update(Usuario usuario){
         try {
             Connection connection = ConexaoDB.getConnection();
 
-            String query = "UPDATE pessoa SET nome = ?, idade = ?, altura = ?, genero = ?, peso = ? where id = ?";
+            String query = "UPDATE usuario SET nome = ?, email = ?, avatar = ?, descricao = ? where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getNome());
-            preparedStatement.setString(2, pessoa.getIdade());
-            preparedStatement.setString(3, pessoa.getAltura());
-            preparedStatement.setString(4, pessoa.getGenero());
-            preparedStatement.setString(5, pessoa.getPeso());
-            preparedStatement.setInt(6, pessoa.getId());
+            preparedStatement.setString(1, usuario.getNome());
+            preparedStatement.setString(2, usuario.getEmail());
+            preparedStatement.setString(3, usuario.getAvatar());
+            preparedStatement.setString(4, usuario.getDescricao());
+            preparedStatement.setInt(5, usuario.getId());
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Pessoa atualizada com sucesso";
+                return "Usuário atualizado com sucesso";
             } else {
                 preparedStatement.close();
                 return "Falha ao atualizar usuário. Por favor consulte um ADMIN";
@@ -63,11 +63,11 @@ public class PessoaDAO {
         }
     }
 
-    public List<Pessoa> getAll(){
+    public List<Usuario> getAll(){
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Pessoa> pessoaList;
-            String query = "SELECT * FROM pessoa";
+            List<Usuario> usuarioList;
+            String query = "SELECT * FROM usuario";
             Statement statement = connection.createStatement();
 
 
@@ -77,24 +77,33 @@ public class PessoaDAO {
                 throw new RuntimeException("Nenhum usuário foi encontrado na base de dados");
             }
 
+            usuarioList = new ArrayList<>();
+            while(resultSet.next()){
+                Usuario usuario = new Usuario();
 
-            pessoaList = generateListPessoaFromResultSet(resultSet);
+                usuario.setId(Integer.parseInt(resultSet.getString(1)));
+                usuario.setNome(resultSet.getString(2));
+                usuario.setEmail(resultSet.getString(3));
+                usuario.setAvatar(resultSet.getString(4));
+                usuario.setDescricao(resultSet.getString(5));
 
+                usuarioList.add(usuario);
+            }
 
             resultSet.close();
             statement.close();
-            return pessoaList;
+            return usuarioList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
             return null;
         }
     };
 
-    public Pessoa getById(int id){
+    public Usuario getById(int id){
         try {
             Connection connection = ConexaoDB.getConnection();
-            Pessoa pessoa;
-            String query = "SELECT * FROM pessoa WHERE id = ?";
+            Usuario usuario = new Usuario();
+            String query = "SELECT * FROM usuario WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setInt(1, id);
@@ -105,23 +114,28 @@ public class PessoaDAO {
                 throw new RuntimeException("Usuário não encontrado na base de dados");
             }
 
-            pessoa = generatePessoaFromResultSet(resultSet);
-
+            if (resultSet.next()){
+                usuario.setId(Integer.parseInt(resultSet.getString(1)));
+                usuario.setNome(resultSet.getString(2));
+                usuario.setEmail(resultSet.getString(3));
+                usuario.setAvatar(resultSet.getString(4));
+                usuario.setDescricao(resultSet.getString(5));
+            }
 
             resultSet.close();
             preparedStatement.close();
-            return pessoa;
+            return usuario;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
             return null;
         }
     }
 
-    public List<Pessoa> getByName(String name){
+    public List<Usuario> getByName(String name){
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Pessoa> pessoaList;
-            String query = "SELECT * FROM pessoa WHERE nome LIKE ?";
+            List<Usuario> usuarioList;
+            String query = "SELECT * FROM usuario WHERE nome LIKE ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, "%" + name + "%");
@@ -132,12 +146,23 @@ public class PessoaDAO {
                 throw new RuntimeException("Nenhum usuário com o nome: " + name + " foi encontrado");
             }
 
-            pessoaList = generateListPessoaFromResultSet(resultSet);
+            usuarioList = new ArrayList<>();
+            while(resultSet.next()){
+                Usuario usuario = new Usuario();
+
+                usuario.setId(Integer.parseInt(resultSet.getString(1)));
+                usuario.setNome(resultSet.getString(2));
+                usuario.setEmail(resultSet.getString(3));
+                usuario.setAvatar(resultSet.getString(4));
+                usuario.setDescricao(resultSet.getString(5));
+
+                usuarioList.add(usuario);
+            }
 
 
             resultSet.close();
             preparedStatement.close();
-            return pessoaList;
+            return usuarioList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
             return null;
@@ -147,7 +172,7 @@ public class PessoaDAO {
     public String delete(int id){
         try {
             Connection connection = ConexaoDB.getConnection();
-            String query = "DELETE FROM pessoa WHERE id = ?";
+            String query = "DELETE FROM usuario WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setInt(1, id);
@@ -166,37 +191,4 @@ public class PessoaDAO {
             return null;
         }
     }
-
-    private Pessoa generatePessoaFromResultSet(ResultSet resultSet) throws SQLException {
-
-        Pessoa pessoa = new Pessoa();
-        if(resultSet.next()){
-            pessoa = generatePessoa(resultSet);
-        }
-
-        return pessoa;
-    }
-
-    private List<Pessoa> generateListPessoaFromResultSet(ResultSet resultSet) throws SQLException{
-
-        List<Pessoa> pessoaList = new ArrayList<>();
-        while(resultSet.next()){
-            Pessoa pessoa = generatePessoa(resultSet);
-            pessoaList.add(pessoa);
-        }
-
-        return pessoaList;
-    }
-
-    private Pessoa generatePessoa(ResultSet resultSet) throws SQLException{
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(Integer.parseInt(resultSet.getString(1)));
-        pessoa.setNome(resultSet.getString(2));
-        pessoa.setIdade(resultSet.getString(3));
-        pessoa.setAltura(resultSet.getString(4));
-        pessoa.setGenero(resultSet.getString(5));
-        pessoa.setPeso(resultSet.getString(6));
-        return pessoa;
-    }
-
 }

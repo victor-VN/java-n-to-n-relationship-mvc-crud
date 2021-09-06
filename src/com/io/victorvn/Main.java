@@ -1,52 +1,30 @@
 package com.io.victorvn;
 
-import com.io.victorvn.controller.PessoaController;
-import com.io.victorvn.model.Pessoa;
-import com.io.victorvn.view.PessoaPetView;
-import com.io.victorvn.view.PessoaView;
-import com.io.victorvn.view.PetView;
+import com.io.victorvn.model.UsuarioChat;
+import com.io.victorvn.view.ChatView;
+import com.io.victorvn.view.UsuarioChatView;
+import com.io.victorvn.view.UsuarioView;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Set;
+import javax.swing.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-//        Object[][] data = {
-//                {"Kathy", "Smith",
-//                        "Snowboarding", new Integer(5), new Boolean(false)},
-//                {"John", "Doe",
-//                        "Rowing", new Integer(3), new Boolean(true)},
-//                {"Sue", "Black",
-//                        "Knitting", new Integer(2), new Boolean(false)},
-//                {"Jane", "White",
-//                        "Speed reading", new Integer(20), new Boolean(true)},
-//                {"Joe", "Brown",
-//                        "Pool", new Integer(10), new Boolean(false)}
-//        };
-//
-//        Pessoa pessoa = new Pessoa();
-//        pessoa.setNome("jaja");
-//
-//        Field[] fields = Pessoa.class.getDeclaredFields();
-        //PessoaView pessoaView = new PessoaView();
-        //pessoaView.showMenuCadastrar();
-        //pessoaView.showMenuCadastrar();
+        mostrarMenuPrincipal();
 
-//        PetView petView = new PetView();
-//        petView.showMenuCadastrar();
+    }
 
-        PessoaPetView pessoaPetView = new PessoaPetView();
+    public static void mostrarMenuPrincipal(){
 
-        pessoaPetView.showMenuCadastrar();
+        UsuarioView usuarioView = new UsuarioView();
+        ChatView chatView = new ChatView();
+        UsuarioChatView usuarioChatView = new UsuarioChatView();
 
+        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - USUARIO, 2 - CHAT, 3 - USUARIO-CHAT"));
+        if (ops == 1) usuarioView.showMenuCadastrar();
+        if (ops == 2) chatView.showMenuCadastrar();
+        if (ops == 3) usuarioChatView.showMenuCadastrar();
 
     }
 }
