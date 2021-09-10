@@ -21,7 +21,7 @@ public class Main {
         ChatView chatView = new ChatView();
         UsuarioChatView usuarioChatView = new UsuarioChatView();
 
-        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - USUARIO, 2 - CHAT, 3 - USUARIO-CHAT"));
+        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - USUARIO\n 2 - CHAT\n 3 - USUARIO-CHAT\n 4 SAIR"));
         if (ops == 1) usuarioView.showMenuCadastrar();
         if (ops == 2) chatView.showMenuCadastrar();
         if (ops == 3) usuarioChatView.showMenuCadastrar();

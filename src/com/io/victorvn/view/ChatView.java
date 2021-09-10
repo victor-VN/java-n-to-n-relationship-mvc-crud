@@ -2,16 +2,18 @@ package com.io.victorvn.view;
 
 import com.io.victorvn.Main;
 import com.io.victorvn.controller.ChatController;
+import com.io.victorvn.controller.UsuarioChatController;
 import com.io.victorvn.model.Chat;
 import javax.swing.*;
 
 public class ChatView {
 
     ChatController chatController = new ChatController();
+    UsuarioChatController usuarioChatController = new UsuarioChatController();
 
     public void showMenuCadastrar(){
 
-        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR, 2 - BUSCAR, 3 - LISTAR, 4 - ALTERAR, 5 - EXCLUIR, 6 - SAIR"));
+        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR\n 2 - BUSCAR\n 3 - LISTAR\n 4 - ALTERAR\n 5 - EXCLUIR\n 6 - SAIR"));
         if (ops == 1) inserir();
         if (ops == 2) buscar();
         if (ops == 3) listar();
@@ -45,11 +47,23 @@ public class ChatView {
     private void buscar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("ID"));
 
+        Chat chat = chatController.buscarChatPorId(id);
+
+        if (chat == null || chat.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Chat não encontrado com id " + id);
+            showMenuCadastrar();
+        }
+
         JOptionPane.showMessageDialog(null,chatController.buscarChatPorId(id));
         showMenuCadastrar();
     }
 
     private void listar() {
+
+        if (chatController.buscarTodosChats().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhum Chat foi encontrado");
+            return;
+        }
 
         JOptionPane.showMessageDialog(null, chatController.buscarTodosChats());
         showMenuCadastrar();
@@ -61,8 +75,8 @@ public class ChatView {
         int id = Integer.parseInt(JOptionPane.showInputDialog("ID"));
         Chat chat = chatController.buscarChatPorId(id);
 
-        if (chat == null){
-            JOptionPane.showMessageDialog(null, "Chat não encontrado");
+        if (chat == null || chat.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Chat não encontrado com id " + id);
             showMenuCadastrar();
         }
 
@@ -83,6 +97,11 @@ public class ChatView {
 
     private void excluir() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("ID"));
+
+        if (!usuarioChatController.listarTodosUsuariosDoChat(id).isEmpty()){
+            JOptionPane.showMessageDialog(null, "O Chat não está vazio!");
+            return;
+        }
         JOptionPane.showMessageDialog(
                 null,
                 chatController.deletarChat(id));

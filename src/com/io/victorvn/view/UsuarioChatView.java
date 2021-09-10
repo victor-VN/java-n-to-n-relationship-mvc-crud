@@ -17,7 +17,7 @@ public class UsuarioChatView {
 
     public void showMenuCadastrar(){
 
-        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR, 2 - LISTAR, 3 - EXCLUIR, 4 - SAIR"));
+        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR\n 2 - LISTAR\n 3 - EXCLUIR\n 4 - SAIR"));
         if (ops == 1) inserir();
         if (ops == 2) listar();
         if (ops == 3) excluir();
@@ -29,16 +29,17 @@ public class UsuarioChatView {
     private void inserir() {
 
         int idUsuario = Integer.parseInt(JOptionPane.showInputDialog("ID USUARIO"));
-        int idChat = Integer.parseInt(JOptionPane.showInputDialog("ID CHAT"));
         Usuario usuario = usuarioController.buscarUsuarioPorId(idUsuario);
-        Chat chat = chatController.buscarChatPorId(idChat);
-
-        if (chat == null){
-            JOptionPane.showMessageDialog(null, "Nenhum chat encontrado!!");
+        if (usuario == null || usuario.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum usuario encontrado com id " + idUsuario);
+            return;
         }
 
-        if (usuario == null){
-            JOptionPane.showMessageDialog(null, "Nenhum usuario encontrado");
+        int idChat = Integer.parseInt(JOptionPane.showInputDialog("ID CHAT"));
+        Chat chat = chatController.buscarChatPorId(idChat);
+        if (chat == null || chat.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum chat encontrado com id " + idChat);
+            return;
         }
 
         UsuarioChat usuarioChat = new UsuarioChat(
@@ -69,6 +70,18 @@ public class UsuarioChatView {
 
         int idUsuario = Integer.parseInt(JOptionPane.showInputDialog("ID USUARIO"));
         int idChat = Integer.parseInt(JOptionPane.showInputDialog("ID CHAT"));
+        Usuario usuario = usuarioController.buscarUsuarioPorId(idUsuario);
+        Chat chat = chatController.buscarChatPorId(idChat);
+
+        if (chat == null || chat.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum chat encontrado!!");
+            return;
+        }
+
+        if (usuario == null || usuario.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum usuario encontrado");
+            return;
+        }
 
         JOptionPane.showMessageDialog(null, usuarioChatController.removerUsuarioDoChat(idUsuario, idChat));
 

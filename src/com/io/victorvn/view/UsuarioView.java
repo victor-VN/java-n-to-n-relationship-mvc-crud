@@ -1,6 +1,7 @@
 package com.io.victorvn.view;
 
 import com.io.victorvn.Main;
+import com.io.victorvn.controller.UsuarioChatController;
 import com.io.victorvn.controller.UsuarioController;
 import com.io.victorvn.model.Usuario;
 
@@ -9,10 +10,11 @@ import javax.swing.*;
 public class UsuarioView {
 
     UsuarioController usuarioController = new UsuarioController();
+    UsuarioChatController usuarioChatController = new UsuarioChatController();
 
     public void showMenuCadastrar(){
 
-        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR, 2 - BUSCAR, 3 - LISTAR, 4 - ALTERAR, 5 - EXCLUIR, 6 - SAIR"));
+        int ops = Integer.parseInt(JOptionPane.showInputDialog("1 - INSERIR\n 2 - BUSCAR\n 3 - LISTAR\n 4 - ALTERAR\n 5 - EXCLUIR\n 6 - SAIR"));
         if (ops == 1) inserir();
         if (ops == 2) buscar();
         if (ops == 3) listar();
@@ -48,12 +50,24 @@ public class UsuarioView {
 
     private void buscar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("ID"));
+        Usuario usuario = usuarioController.buscarUsuarioPorId(id);
+
+        if (usuario == null || usuario.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado com id " + id);
+
+            showMenuCadastrar();
+        }
 
         JOptionPane.showMessageDialog(null, usuarioController.buscarUsuarioPorId(id));
         showMenuCadastrar();
     }
 
     private void listar() {
+
+        if (usuarioController.buscarTodosUsuarios().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado");
+            return;
+        }
 
         JOptionPane.showMessageDialog(null, usuarioController.buscarTodosUsuarios());
         showMenuCadastrar();
@@ -66,8 +80,8 @@ public class UsuarioView {
 
         Usuario usuario = usuarioController.buscarUsuarioPorId(id);
 
-        if (usuario == null){
-            JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado");
+        if (usuario == null || usuario.getId() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado com id " + id);
 
             showMenuCadastrar();
         }
@@ -89,6 +103,11 @@ public class UsuarioView {
 
     private void excluir() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("ID"));
+
+        if (!usuarioChatController.listarTodosUsuariosDoChat(id).isEmpty()){
+            JOptionPane.showMessageDialog(null, "O Usuário pertence a um ou mais chats!");
+            return;
+        }
         JOptionPane.showMessageDialog(null, usuarioController.excluirUsuario(id));
 
         showMenuCadastrar();
