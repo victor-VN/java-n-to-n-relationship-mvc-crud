@@ -1,6 +1,16 @@
+#drop database chat_db;
 CREATE DATABASE IF NOT EXISTS chat_db;
 
 use chat_db;
+
+CREATE TABLE USER_AUTH(
+	
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR (50),
+    email VARCHAR(150),
+    password_usr VARCHAR(16)
+
+);
 
 CREATE TABLE USUARIO (
 	
@@ -31,14 +41,14 @@ CREATE TABLE usuario_chat (
     favorito ENUM('SIM', 'NAO'),
     administrador ENUM('SIM', 'NAO'),
 	
-	FOREIGN KEY (id_pessoa) REFERENCES pessoa(id),
-    FOREIGN KEY (id_pet) REFERENCES pet(id)    
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    FOREIGN KEY (id_chat) REFERENCES chat(id)    
 );
 
 
 select * from usuario;
 select * from chat;
-select * from usuario_chat where usuario_chat.id_usuario = 1;
+select * from usuario_chat;
 
 select distinct pessoa.id, pet.id, pet.nome, pessoa.nome from pet, pessoa
 inner join pet_pessoa on pet_pessoa.id_pessoa = pessoa.id; 
