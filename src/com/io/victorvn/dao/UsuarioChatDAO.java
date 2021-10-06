@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UsuarioChatDAO {
 
-    public String save(UsuarioChat usuarioChat){
+    public UsuarioChat save(UsuarioChat usuarioChat){
         try {
             Connection connection = ConexaoDB.getConnection();
 
@@ -28,17 +28,17 @@ public class UsuarioChatDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Usuário adicionado ao chat com sucesso!";
+                return usuarioChat;
             } else {
                 preparedStatement.close();
-                return "Falha ao adicionar usuário ao chat. Por favor consulte um ADMIN";
+                return null;
             }
         } catch (Exception e){
-            return "ERRO: " + e.getMessage();
+            return null;
         }
     }
 
-    public String delete(int usuarioId, int chatId){
+    public Integer delete(int usuarioId, int chatId){
         try {
             Connection connection = ConexaoDB.getConnection();
             String query = "DELETE FROM usuario_chat WHERE usuario_chat.id_usuario = ? AND usuario_chat.id_chat = ?";
@@ -49,10 +49,10 @@ public class UsuarioChatDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Usuário removido do chat!";
+                return usuarioId;
             } else {
                 preparedStatement.close();
-                return "Falha ao tentar remover usuario do chat!! Procure o ADMIN";
+                return null;
             }
 
 

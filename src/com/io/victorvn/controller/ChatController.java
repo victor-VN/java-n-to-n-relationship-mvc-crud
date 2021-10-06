@@ -9,11 +9,11 @@ public class ChatController {
 
     ChatDAO chatDAO = new ChatDAO();
 
-    public String cadastrarChat(Chat chat){
+    public Chat cadastrarChat(Chat chat){
         return chatDAO.save(chat);
     }
 
-    public String atualizarChat(Chat chat){
+    public Chat atualizarChat(Chat chat){
         return chatDAO.update(chat);
     }
 
@@ -29,7 +29,7 @@ public class ChatController {
         return chatDAO.getAll();
     }
 
-    public String deletarChat(int id) {
+    public Integer deletarChat(int id) {
         return chatDAO.delete(id);
     }
 }

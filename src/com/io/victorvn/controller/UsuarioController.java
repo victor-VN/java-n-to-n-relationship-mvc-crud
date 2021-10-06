@@ -9,11 +9,11 @@ public class UsuarioController {
 
     UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    public String cadastrarUsuario(Usuario usuario){
+    public Usuario cadastrarUsuario(Usuario usuario){
         return usuarioDAO.save(usuario);
     }
 
-    public String atualizarUsuario(Usuario usuario){
+    public Usuario atualizarUsuario(Usuario usuario){
         return usuarioDAO.update(usuario);
     }
 
@@ -29,7 +29,7 @@ public class UsuarioController {
         return usuarioDAO.getAll();
     }
 
-    public String excluirUsuario(int id) {
+    public Integer excluirUsuario(int id) {
         return usuarioDAO.delete(id);
     }
 }

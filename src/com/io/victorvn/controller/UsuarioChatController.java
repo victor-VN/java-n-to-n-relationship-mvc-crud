@@ -11,11 +11,11 @@ public class UsuarioChatController {
 
     UsuarioChatDAO usuarioChatDAO = new UsuarioChatDAO();
 
-    public String adicionarUsuarioNoChat(UsuarioChat usuarioChat){
+    public UsuarioChat adicionarUsuarioNoChat(UsuarioChat usuarioChat){
         return usuarioChatDAO.save(usuarioChat);
     }
 
-    public String removerUsuarioDoChat(int usuarioId, int chatId){
+    public Integer removerUsuarioDoChat(int usuarioId, int chatId){
         return usuarioChatDAO.delete(usuarioId, chatId);
     }
 

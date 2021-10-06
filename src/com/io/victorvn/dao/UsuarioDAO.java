@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public String save(Usuario usuario){
+    public Usuario save(Usuario usuario){
         try {
             Connection connection = ConexaoDB.getConnection();
 
@@ -26,17 +26,17 @@ public class UsuarioDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Usuario cadastrado com sucesso";
+                return usuario;
             } else {
                 preparedStatement.close();
-                return "Falha ao cadastrar usuário. Por favor consulte um ADMIN";
+                return null;
             }
         } catch (Exception e){
-            return "ERRO: " + e.getMessage();
+            return null;
         }
     }
 
-    public String update(Usuario usuario){
+    public Usuario update(Usuario usuario){
         try {
             Connection connection = ConexaoDB.getConnection();
 
@@ -51,15 +51,15 @@ public class UsuarioDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Usuário atualizado com sucesso";
+                return usuario;
             } else {
                 preparedStatement.close();
-                return "Falha ao atualizar usuário. Por favor consulte um ADMIN";
+                return null;
             }
 
 
         } catch (Exception e){
-            return "ERRO: " + e.getMessage();
+            return null;
         }
     }
 
@@ -169,7 +169,7 @@ public class UsuarioDAO {
         }
     }
 
-    public String delete(int id){
+    public Integer delete(int id){
         try {
             Connection connection = ConexaoDB.getConnection();
             String query = "DELETE FROM usuario WHERE id = ?";
@@ -179,10 +179,10 @@ public class UsuarioDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Usuário excluído com sucesso!";
+                return id;
             } else {
                 preparedStatement.close();
-                return "Falha ao tentar excluir usuário. Procure o ADMIN";
+                return null;
             }
 
 

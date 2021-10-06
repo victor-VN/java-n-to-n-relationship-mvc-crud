@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ChatDAO {
 
-    public String save(Chat chat){
+    public Chat save(Chat chat){
         try {
             Connection connection = ConexaoDB.getConnection();
 
@@ -26,17 +26,17 @@ public class ChatDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Chat cadastrado com sucesso";
+                return chat;
             } else {
                 preparedStatement.close();
-                return "Falha ao cadastrar chat. Por favor consulte um ADMIN";
+                return null;
             }
         } catch (Exception e){
-            return "ERRO: " + e.getMessage();
+            return null;
         }
     }
 
-    public String update(Chat chat){
+    public Chat update(Chat chat){
         try {
             Connection connection = ConexaoDB.getConnection();
 
@@ -51,15 +51,15 @@ public class ChatDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Chat atualizada com sucesso";
+                return chat;
             } else {
                 preparedStatement.close();
-                return "Falha ao atualizar chat. Por favor consulte um ADMIN";
+                return null;
             }
 
 
         } catch (Exception e){
-            return "ERRO: " + e.getMessage();
+            return null;
         }
     }
 
@@ -166,7 +166,7 @@ public class ChatDAO {
         }
     }
 
-    public String delete(int id){
+    public Integer delete(int id){
         try {
             Connection connection = ConexaoDB.getConnection();
             String query = "DELETE FROM chat WHERE id = ?";
@@ -176,10 +176,10 @@ public class ChatDAO {
 
             if (preparedStatement.executeUpdate() > 0){
                 preparedStatement.close();
-                return "Chat excluído com sucesso!";
+                return id;
             } else {
                 preparedStatement.close();
-                return "Falha ao tentar excluir chat. Procure o ADMIN";
+                return null;
             }
 
 
