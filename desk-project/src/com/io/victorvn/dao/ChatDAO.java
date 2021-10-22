@@ -94,7 +94,7 @@ public class ChatDAO {
             return chatList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     };
 
@@ -162,7 +162,7 @@ public class ChatDAO {
             return chatList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 

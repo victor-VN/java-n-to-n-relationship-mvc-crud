@@ -66,7 +66,7 @@ public class UsuarioChatDAO {
 
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Usuario> usuarioList;
+            List<Usuario> usuarioList = new ArrayList<>();
             String query = "select * from usuario where usuario.id in (select usuario_chat.id_usuario from usuario_chat where usuario_chat.id_chat = ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -97,7 +97,7 @@ public class UsuarioChatDAO {
             return usuarioList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
 
     }
@@ -106,7 +106,7 @@ public class UsuarioChatDAO {
 
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Chat> chatList;
+            List<Chat> chatList = new ArrayList<>();
             String query = "select * from chat where chat.id in (select usuario_chat.id_chat from usuario_chat where usuario_chat.id_usuario = ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -137,7 +137,7 @@ public class UsuarioChatDAO {
             return chatList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
 
     }

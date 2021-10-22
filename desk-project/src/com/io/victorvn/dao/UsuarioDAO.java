@@ -66,7 +66,7 @@ public class UsuarioDAO {
     public List<Usuario> getAll(){
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Usuario> usuarioList;
+            List<Usuario> usuarioList = new ArrayList<>();
             String query = "SELECT * FROM usuario";
             Statement statement = connection.createStatement();
 
@@ -95,7 +95,7 @@ public class UsuarioDAO {
             return usuarioList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     };
 
@@ -134,7 +134,7 @@ public class UsuarioDAO {
     public List<Usuario> getByName(String name){
         try {
             Connection connection = ConexaoDB.getConnection();
-            List<Usuario> usuarioList;
+            List<Usuario> usuarioList = new ArrayList<>();
             String query = "SELECT * FROM usuario WHERE nome LIKE ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -165,7 +165,7 @@ public class UsuarioDAO {
             return usuarioList;
         } catch (Exception e){
             System.out.println("Erro: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 
