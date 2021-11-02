@@ -5,7 +5,8 @@
 <%@ page import="com.mysql.cj.util.StringUtils" %>
 <%@ page import="com.io.victorvn.controller.UsuarioChatController" %>
 <%@ page import="com.io.victorvn.model.Chat" %>
-<%@ page import="com.io.victorvn.controller.ChatController" %><%--
+<%@ page import="com.io.victorvn.controller.ChatController" %>
+<%@ page import="java.lang.reflect.Field" %><%--
   Created by IntelliJ IDEA.
   User: victor.oliveira
   Date: 21/10/2021
@@ -27,35 +28,82 @@
 
 <body>
 
+<script>
+    $(document).ready(function(){
+        $('td[class^="notrow"]').on('mouseenter', function () {
+            let chatId = $(this).attr('id').split('-')[0];
+            $('td[id^="'+chatId+'"]').css("background-color", "#f0f0f0")
+        })
+
+        $('td[class^="notrow"]').on('mouseleave', function () {
+            //$(this).css
+            $('td[class^="notrow"]').css("background-color", "white")
+        })
+
+        $('td[class^="notrow"]').on('click', function () {
+            //let oi = window.location.href + $(this).attr('title');
+            let chatId = $(this).attr('id').split('-')[0];
+
+            document.location.href = $("#"+chatId).attr('title');
+        })
+    });
+
+</script>
 
 <jsp:include page="../common/navbar.jsp" />
 <div class="container">
     <div class="row">
-        <ul class="collection with-header">
-            <li class="collection-header"><h4>Chats</h4></li>
+        <table style="margin-top: 5%">
+            <thead>
+            <tr>
+                <% for (Field field: Chat.class.getDeclaredFields()){  %>
+
+                <th><%=field.getName().substring(0,1).toUpperCase() + field.getName().substring(1).toLowerCase()%></th>
+                <% } %>
+            </tr>
+            </thead>
+
+            <tbody>
             <% for (Chat chat : chatList){ %>
 
-            <li class="collection-item">
-                <div>
-                    <%=chat.getNome().substring(0,1).toUpperCase() + chat.getNome().substring(1).toLowerCase()%>
-                    <a href="#remUser<%=chat.getId()%>" class="modal-trigger secondary-content">
-                        <i class="material-icons" style="color: red">clear</i>
-                    </a>
+            <tr style="cursor: pointer;" id="nothead<%=chat.getId()%>">
+                <td class="notrow"
+                    title="../../process/chat/buscar-chat-unico.jsp?id=<%=chat.getId()%>"
+                        id="<%=chat.getId()%>"><%=chat.getId()%></td>
+                <td class="notrow" id=<%=chat.getId()%>"-nome-<%=chat.getId()%>"><%=chat.getNome().substring(0,1).toUpperCase() + chat.getNome().substring(1).toLowerCase()%></td>
+                <td class="notrow" id="<%=chat.getId()%>-email-<%=chat.getId()%>"><%=chat.getStatus()%></td>
+                <td class="notrow" id="<%=chat.getId()%>-avatar-<%=chat.getId()%>"><%=chat.getCapacidade()%></td>
+                <td class="notrow" id="<%=chat.getId()%>-descricao-<%=chat.getId()%>"><%=chat.getAssunto()%></td>
+                <td>
+                    <div>
+                        <a href="#remUser<%=chat.getId()%>" class="modal-trigger secondary-content">
+                            <i class="material-icons" style="color: red">clear</i>
+                        </a>
 
-                    <a href="#remChat<%=chat.getId()%>" class="modal-trigger secondary-content">
-                        <i class="material-icons" style="color: black">remove</i>
-                    </a>
+                        <a href="#remChat<%=chat.getId()%>" class="modal-trigger secondary-content">
+                            <i class="material-icons" style="color: black">remove</i>
+                        </a>
 
-                    <a href="#addChat<%=chat.getId()%>" class="modal-trigger secondary-content">
-                        <i class="material-icons">add</i>
-                    </a>
+                        <a href="#addChat<%=chat.getId()%>" class="modal-trigger secondary-content">
+                            <i class="material-icons">add</i>
+                        </a>
 
-                    <a href="#dadosUsuario<%=chat.getId()%>" class="modal-trigger secondary-content">
-                        <i class="material-icons" style="color: blue">create</i>
-                    </a>
-                </div>
-            </li>
+                        <a href="#dadosUsuario<%=chat.getId()%>" class="modal-trigger secondary-content">
+                            <i class="material-icons" style="color: blue">create</i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
 
+            <%  } %>
+
+            </tbody>
+        </table>
+
+
+
+
+            <% for (Chat chat : chatList){ %>
             <!-- Modal Structure -->
             <div id="dadosUsuario<%=chat.getId()%>" class="modal">
                 <div class="container">
@@ -200,8 +248,6 @@
             </div>
 
             <%  } %>
-
-        </ul>
     </div>
 </div>
 </body>
