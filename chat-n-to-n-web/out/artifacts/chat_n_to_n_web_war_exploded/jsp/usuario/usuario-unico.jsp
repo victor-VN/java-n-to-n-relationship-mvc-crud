@@ -46,6 +46,9 @@
                 <button class="btn waves-effect waves-light" type="submit" name="action">Atualizar
                     <i class="material-icons right">send</i>
                 </button>
+                <button onclick="history.back()" class="btn waves-effect waves-light deep-orange accent-3" type="submit" name="action">Cancelar
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
     </div>

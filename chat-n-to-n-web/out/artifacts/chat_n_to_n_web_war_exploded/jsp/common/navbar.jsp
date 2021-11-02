@@ -10,6 +10,9 @@
 <%
     String url = request.getRequestURI();
     url = url.substring(0, 29);
+
+    boolean isHomepage = request.getRequestURI().contains("homepage");
+
 %>
 
 <nav>
@@ -51,6 +54,10 @@
             eraseCookie('JASE')
             window.location.href = '/chat_n_to_n_web_war_exploded/login.jsp';
         }
+
+        function submitForm() {
+            $('#formPesquisa').submit();
+        }
     </script>
     <div class="nav-wrapper">
         <a href="<%= url %>/homepage.jsp" class="brand-logo" style="margin-left: 3%">Chat</a>
@@ -58,6 +65,23 @@
             <li><a href="<%= url %>/jsp/usuario/usuarios.jsp">Usuários</a></li>
             <li><a href="<%= url %>/jsp/chat/chats.jsp">Chat</a></li>
             <li><a href="" onclick="logout()">Logout</a></li>
+            <li>
+                <% if (isHomepage) { %>
+                <form id="formPesquisa" action="./process/usuario/buscar-usuario-nome.jsp" method="post">
+                    <input type="text" name="usuarioNome" placeholder="Ex: maria">
+                </form>
+                <% } %>
+
+                <% if (!isHomepage) { %>
+                <form id="formPesquisa" action="../../process/usuario/buscar-usuario-nome.jsp" method="post">
+                    <input type="text" name="usuarioNome" placeholder="Ex: maria">
+                </form>
+                <% } %>
+
+            </li>
+            <li>
+                <a class="waves-effect waves-light btn" onclick="submitForm()">Pesquisar</a>
+            </li>
         </ul>
     </div>
 </nav>
