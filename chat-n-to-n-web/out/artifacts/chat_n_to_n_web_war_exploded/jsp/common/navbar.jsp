@@ -59,7 +59,7 @@
             $('#formPesquisa').submit();
         }
     </script>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper indigo lighten-1">
         <a href="<%= url %>/homepage.jsp" class="brand-logo" style="margin-left: 3%">Chat</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="<%= url %>/jsp/usuario/usuarios.jsp">Usuários</a></li>
@@ -67,20 +67,20 @@
             <li><a href="" onclick="logout()">Logout</a></li>
             <li>
                 <% if (isHomepage) { %>
-                <form id="formPesquisa" action="./process/usuario/buscar-usuario-nome.jsp" method="post">
-                    <input type="text" name="usuarioNome" placeholder="Ex: maria">
+                <form style="padding: 3%" id="formPesquisa" action="./process/usuario/buscar-usuario-nome.jsp" method="post">
+                    <input type="text" name="usuarioNome" placeholder="Ex: Maria">
                 </form>
                 <% } %>
 
                 <% if (!isHomepage) { %>
-                <form id="formPesquisa" action="../../process/usuario/buscar-usuario-nome.jsp" method="post">
-                    <input type="text" name="usuarioNome" placeholder="Ex: maria">
+                <form style="padding: 3%" id="formPesquisa" action="../../process/usuario/buscar-usuario-nome.jsp" method="post">
+                    <input type="text" name="usuarioNome" placeholder="Ex: Maria">
                 </form>
                 <% } %>
 
             </li>
             <li>
-                <a class="waves-effect waves-light btn" onclick="submitForm()">Pesquisar</a>
+                <a class="waves-effect waves-light btn indigo darken-4" onclick="submitForm()">Pesquisar</a>
             </li>
         </ul>
     </div>

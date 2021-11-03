@@ -14,7 +14,7 @@
             0,
             request.getParameter("nome"),
             request.getParameter("email"),
-            "avatar",
+            request.getParameter("sobrenome"),
             request.getParameter("descricao")
     );
 

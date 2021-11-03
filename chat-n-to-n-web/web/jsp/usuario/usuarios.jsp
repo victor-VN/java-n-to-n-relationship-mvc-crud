@@ -61,7 +61,14 @@
             <tr>
                 <% for (Field field: Usuario.class.getDeclaredFields()){  %>
 
+                <% if (field.getName().equalsIgnoreCase("avatar")) { %>
+                <th>Sobrenome</th>
+                <% } %>
+
+                <% if (!field.getName().equalsIgnoreCase("avatar")) { %>
                 <th><%=field.getName().substring(0,1).toUpperCase() + field.getName().substring(1).toLowerCase()%></th>
+                <% } %>
+
                 <% } %>
             </tr>
             </thead>
@@ -122,6 +129,13 @@
                                 <label for="first_name">Nome</label>
                             </div>
                             <div class="input-field col s6">
+                                <input id="sobrenome" type="text" name="sobrenome" value="<%=usuario.getAvatar()%>" class="validate">
+                                <label for="sobrenome">Sobrenome</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <input id="email" type="text" name="email" value="<%=usuario.getEmail()%>" class="validate">
                                 <label for="email">Email</label>
                             </div>

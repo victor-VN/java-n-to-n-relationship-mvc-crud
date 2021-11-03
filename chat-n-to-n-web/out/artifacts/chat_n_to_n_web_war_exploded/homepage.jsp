@@ -96,6 +96,13 @@
                             <label for="first_name">Nome</label>
                         </div>
                         <div class="input-field col s6">
+                            <input id="sobrenome" type="text" name="sobrenome" value="" class="validate">
+                            <label for="sobrenome">Sobrenome</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
                             <input id="email" type="text" name="email" value="" class="validate">
                             <label for="email">Email</label>
                         </div>

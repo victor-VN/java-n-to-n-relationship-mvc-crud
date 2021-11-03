@@ -30,6 +30,13 @@
 
             <div class="row">
                 <div class="input-field col s4">
+                    <input placeholder="Placeholder" name="sobrenome" value="<%=usuario.getAvatar()%>" id="sobrenome" type="text" class="validate">
+                    <label for="sobrenome">Sobrenome</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s4">
                     <input id="email" type="text" name="email" value="<%=usuario.getEmail()%>" class="validate">
                     <label for="email">Email</label>
                 </div>

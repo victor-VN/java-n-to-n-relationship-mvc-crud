@@ -14,7 +14,7 @@
             Integer.parseInt(request.getParameter("id")),
             request.getParameter("nome"),
             request.getParameter("email"),
-            request.getParameter("avatar"),
+            request.getParameter("sobrenome"),
             request.getParameter("descricao")
     );
 

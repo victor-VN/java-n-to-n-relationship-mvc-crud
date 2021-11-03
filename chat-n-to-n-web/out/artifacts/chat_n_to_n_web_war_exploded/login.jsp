@@ -23,12 +23,12 @@
             <div class="row">
                 <div class="input-field col s12 m4 l4 xl4">
                     <input id="password" name="senha" type="password" class="validate">
-                    <label for="password">Password</label>
+                    <label for="password">Senha</label>
                 </div>
             </div>
 
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Entrar
                     <i class="material-icons right">send</i>
                 </button>
             </div>
