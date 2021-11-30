@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: victor.oliveira
   Date: 20/10/2021
@@ -130,6 +130,8 @@
             </div>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

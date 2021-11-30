@@ -13,6 +13,10 @@ public class UsuarioController {
         return usuarioDAO.save(usuario);
     }
 
+    public List<Usuario> cadastrarUsuario(List<Usuario> usuario){
+        return usuarioDAO.save(usuario);
+    }
+
     public Usuario atualizarUsuario(Usuario usuario){
         return usuarioDAO.update(usuario);
     }

@@ -6,11 +6,14 @@ import com.io.victorvn.controller.UsuarioController;
 import com.io.victorvn.model.Usuario;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioView {
 
     UsuarioController usuarioController = new UsuarioController();
     UsuarioChatController usuarioChatController = new UsuarioChatController();
+    private static List<Usuario> usuarioList = new ArrayList<>();
 
     public void showMenuCadastrar(){
 
@@ -41,11 +44,22 @@ public class UsuarioView {
                 descricao
         );
 
-        JOptionPane.showMessageDialog(
-                null,
-                usuarioController.cadastrarUsuario(usuario));
+        usuarioList.add(usuario);
+        JOptionPane.showMessageDialog(null, usuarioList);
 
-        showMenuCadastrar();
+        int acao = Integer.parseInt(JOptionPane.showInputDialog("Deseja salvar no banco?"));
+
+        if (acao == 1){
+            usuarioController.cadastrarUsuario(usuarioList);
+            JOptionPane.showMessageDialog(null, "Usuarios cadastrados com sucesso");
+            showMenuCadastrar();
+        } else {
+            //        JOptionPane.showMessageDialog(
+//                null,
+//                usuarioController.cadastrarUsuario(usuario));
+
+            showMenuCadastrar();
+        }
     }
 
     private void buscar() {

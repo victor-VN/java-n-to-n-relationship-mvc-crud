@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/telaInicialFragment2">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.app.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first"/>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.app.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second"/>
+    <fragment
+        android:id="@+id/telaInicialFragment2"
+        android:name="com.example.app.TelaInicialFragment"
+        android:label="TelaInicialFragment" >
+        <action
+            android:id="@+id/action_telaInicialFragment2_to_usuarioFragment"
+            app:destination="@id/usuarioFragment" />
+        <action
+            android:id="@+id/action_telaInicialFragment2_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_telaInicialFragment2_to_adicionarUsuarioChatFragment"
+            app:destination="@id/adicionarUsuarioChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/usuarioFragment"
+        android:name="com.example.app.UsuarioFragment"
+        android:label="UsuarioFragment" >
+        <action
+            android:id="@+id/action_usuarioFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_usuarioFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_usuarioFragment_to_atualizarUsuarioFragment"
+            app:destination="@id/atualizarUsuarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/atualizarUsuarioFragment"
+        android:name="com.example.app.AtualizarUsuarioFragment"
+        android:label="AtualizarUsuarioFragment" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.app.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_cadastrarChatFragment"
+            app:destination="@id/cadastrarChatFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_atualizarChatFragment"
+            app:destination="@id/atualizarChatFragment" />
+        <action
+            android:id="@+id/action_chatFragment_to_listarChatFragment"
+            app:destination="@id/listarChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/atualizarChatFragment"
+        android:name="com.example.app.AtualizarChatFragment"
+        android:label="AtualizarChatFragment" />
+    <fragment
+        android:id="@+id/listarChatFragment"
+        android:name="com.example.app.ListarChatFragment"
+        android:label="ListarChatFragment" />
+    <fragment
+        android:id="@+id/cadastrarChatFragment"
+        android:name="com.example.app.CadastrarChatFragment"
+        android:label="CadastrarChatFragment" />
+    <fragment
+        android:id="@+id/adicionarUsuarioChatFragment"
+        android:name="com.example.app.AdicionarUsuarioChatFragment"
+        android:label="fragment_adicionar_usuario_chat"
+        tools:layout="@layout/fragment_adicionar_usuario_chat" />
+</navigation>

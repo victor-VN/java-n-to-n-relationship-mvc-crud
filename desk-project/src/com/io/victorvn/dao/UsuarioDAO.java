@@ -36,6 +36,27 @@ public class UsuarioDAO {
         }
     }
 
+    public List<Usuario> save(List<Usuario> usuarioList){
+        for (Usuario usuario : usuarioList){
+            try {
+                Connection connection = ConexaoDB.getConnection();
+
+                String query = "INSERT INTO usuario VALUES (DEFAULT,?,?,?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                preparedStatement.setString(1, usuario.getNome());
+                preparedStatement.setString(2, usuario.getEmail());
+                preparedStatement.setString(3, usuario.getAvatar());
+                preparedStatement.setString(4, usuario.getDescricao());
+
+                preparedStatement.executeUpdate();
+            } catch (Exception e){
+                return null;
+            }
+        }
+        return null;
+    }
+
     public Usuario update(Usuario usuario){
         try {
             Connection connection = ConexaoDB.getConnection();
